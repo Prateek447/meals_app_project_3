@@ -13,7 +13,6 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
 
- // static const routeName = '/tabScreen';
 
  final  List<Map<String, Object>> _pages = [
     {
