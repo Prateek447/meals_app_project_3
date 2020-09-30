@@ -58,7 +58,6 @@ class _CategoryMealScreenState extends State<CategoryMealScreen> {
         child: ListView.builder(
           itemBuilder: (context, index) {
             return MealsItem(
-              removeItem: removeMeal,
                id: displayedMeals[index].id,
                 title: displayedMeals[index].title,
                 duration: displayedMeals[index].duration,

@@ -4,38 +4,41 @@ import 'package:mealsappproject3/modals/dummy_data.dart';
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
 
+  final Function toggleFav;
+  final Function favMeal;
+
+  MealDetailScreen(this.toggleFav,this.favMeal);
 
   Widget buildSectionTitle(BuildContext context, String text) {
-  return Container(
-  margin: EdgeInsets.symmetric(vertical: 10),
-  child: Text(
-  text,
-  style: Theme.of(context).textTheme.headline6,
-  ),
-  );
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.headline6,
+      ),
+    );
   }
 
   Widget buildContainer(Widget child) {
-  return Container(
-  decoration: BoxDecoration(
-  color: Colors.white,
-  border: Border.all(color: Colors.grey),
-  borderRadius: BorderRadius.circular(10),
-  ),
-  margin: EdgeInsets.all(10),
-  padding: EdgeInsets.all(10),
-  height: 150,
-  width: 300,
-  child: child,
-  );
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
+      height: 150,
+      width: 300,
+      child: child,
+    );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     final mealId = ModalRoute.of(context).settings.arguments as String;
-    final selectedMeal = DUMMY_MEALS.firstWhere((element) => element.id == mealId);
+    final selectedMeal =
+        DUMMY_MEALS.firstWhere((element) => element.id == mealId);
     return Scaffold(
       appBar: AppBar(
         title: Text('${selectedMeal.title}'),
@@ -61,7 +64,10 @@ class MealDetailScreen extends StatelessWidget {
                         vertical: 5,
                         horizontal: 10,
                       ),
-                      child: Text(selectedMeal.ingrediants[index],style: TextStyle(color: Colors.white),)),
+                      child: Text(
+                        selectedMeal.ingrediants[index],
+                        style: TextStyle(color: Colors.white),
+                      )),
                 ),
                 itemCount: selectedMeal.ingrediants.length,
               ),
@@ -72,8 +78,12 @@ class MealDetailScreen extends StatelessWidget {
                 itemBuilder: (ctx, index) => Column(
                   children: [
                     ListTile(
-                      leading: CircleAvatar(backgroundColor: Colors.purple,
-                        child: Text('# ${(index + 1)}',style: TextStyle(color: Colors.white),),
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.purple,
+                        child: Text(
+                          '# ${(index + 1)}',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                       title: Text(
                         selectedMeal.steps[index],
@@ -89,9 +99,10 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed:(){
-        Navigator.of(context).pop(mealId);
-      },child: Icon(Icons.delete),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => toggleFav(mealId),
+        child: Icon(favMeal(mealId)?Icons.favorite:Icons.favorite_border),
+      ),
     );
   }
 }
